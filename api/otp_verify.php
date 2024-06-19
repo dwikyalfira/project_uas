@@ -21,15 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $otp = mysqli_real_escape_string($koneksi, $otp);
 
         // Verify OTP
-        $query = "SELECT * FROM tb_user WHERE email='$email' AND code_verification='$otp'";
+        $query = "SELECT * FROM tb_users WHERE email='$email' AND code_verification='$otp'";
         $result = mysqli_query($koneksi, $query);
 
         if (mysqli_num_rows($result) > 0) {
             $response['value'] = 1;
             $response['message'] = 'OTP berhasil diverifikasi';
-            
+
             // Update user_status to 'verified' if the email and OTP are correct
-            $updateQuery = "UPDATE tb_user SET user_status = 'verified' WHERE email='$email'";
+            $updateQuery = "UPDATE tb_users SET user_status = 'verified' WHERE email='$email'";
             if (mysqli_query($koneksi, $updateQuery)) {
                 $response['message'] = 'Status user berhasil diperbarui';
             } else {
@@ -52,4 +52,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 mysqli_close($koneksi);
-?>
