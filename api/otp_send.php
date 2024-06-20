@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $email = mysqli_real_escape_string($koneksi, $email);
 
         // Check if email exists
-        $checkEmailQuery = "SELECT * FROM tb_user WHERE email='$email'";
+        $checkEmailQuery = "SELECT * FROM tb_users WHERE email='$email'";
         $emailResult = mysqli_query($koneksi, $checkEmailQuery);
 
         if (mysqli_num_rows($emailResult) > 0) {
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $otp = rand(1000, 9999);
 
             // Store OTP in the database
-            $updateQuery = "UPDATE tb_user SET code_verification='$otp' WHERE email='$email'";
+            $updateQuery = "UPDATE tb_users SET code_verification='$otp' WHERE email='$email'";
             if (mysqli_query($koneksi, $updateQuery)) {
                 // Send OTP via email
                 $mail = new PHPMailer(true);

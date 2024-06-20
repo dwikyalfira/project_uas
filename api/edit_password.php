@@ -21,15 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $password_md5 = md5($password);
 
         // Check if the email exists
-        $cek = "SELECT * FROM tb_user WHERE email = '$email'";
+        $cek = "SELECT * FROM tb_users WHERE email = '$email'";
         $result = mysqli_query($koneksi, $cek);
 
         if (mysqli_num_rows($result) > 0) {
             // Update the password
-            $update = "UPDATE tb_user SET password = '$password_md5', updated = NOW() WHERE email = '$email'";
+            $update = "UPDATE tb_users SET password = '$password_md5', updated_at = NOW() WHERE email = '$email'";
             if (mysqli_query($koneksi, $update)) {
                 // Retrieve the updated user data
-                $query = "SELECT id, username, email, updated FROM tb_user WHERE email = '$email'";
+                $query = "SELECT id, username, email, updated_at FROM tb_users WHERE email = '$email'";
                 $result = mysqli_query($koneksi, $query);
 
                 if ($result) {
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $response['email'] = $row['email'];
                         $response['username'] = $row['username'];
                         $response['id'] = $row['id'];
-                        $response['updated'] = $row['updated'];
+                        $response['updated_at'] = $row['updated_at'];
                     } else {
                         $response['value'] = 0;
                         $response['message'] = "Kesalahan dalam pengambilan data yang diperbarui";
@@ -69,5 +69,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $response['message'] = "Metode permintaan tidak valid";
     echo json_encode($response);
 }
-
-?>
