@@ -46,12 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $mail->Port       = 587;
 
                     //Recipients
-                    $mail->setFrom('otp@verif.com', 'Project E-Commerce');
+                    $mail->setFrom('otp@verif.com', 'Project UAS');
                     $mail->addAddress($email);
 
                     // Content
                     $mail->isHTML(true);
-                    $mail->Subject = 'Project E-Commerce [' . $otp . ']';
+                    $mail->Subject = 'Project UAS [' . $otp . ']';
                     $mail->Body    = 'Masukkan kode OTP ini untuk memverifikasi akun Anda: ' . $otp;
 
                     $mail->send();
