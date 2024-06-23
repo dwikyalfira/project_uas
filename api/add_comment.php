@@ -15,9 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $updated_at = date('Y-m-d H:i:s');
 
         // Use prepared statements to prevent SQL injection
-        $query = "INSERT INTO tb_comments (id_user, id_food, content, comment_date, created_at, updated_at) 
+        $query = "INSERT INTO tb_comments (id_user, id_food, content, comment_date, created_at, updated_at)
                   VALUES (?, ?, ?, ?, ?, ?)";
         if ($stmt = $koneksi->prepare($query)) {
+            // Define the types for the bind parameters: i for integer, s for string
             $stmt->bind_param("iissss", $id_user, $id_food, $content, $comment_date, $created_at, $updated_at);
             $stmt->execute();
 
