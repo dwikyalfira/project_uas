@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 23, 2024 at 08:07 AM
+-- Generation Time: Jun 23, 2024 at 10:37 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -63,9 +63,17 @@ CREATE TABLE `tb_favorites` (
   `id_favorite` int NOT NULL,
   `id_user` int NOT NULL,
   `id_food` int NOT NULL,
+  `id_store` int NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_favorites`
+--
+
+INSERT INTO `tb_favorites` (`id_favorite`, `id_user`, `id_food`, `id_store`, `created_at`, `updated_at`) VALUES
+(1, 1, 8, 1, '2024-06-23 16:22:18', '2024-06-23 16:22:18');
 
 -- --------------------------------------------------------
 
@@ -143,6 +151,7 @@ CREATE TABLE `tb_recipes` (
   `id_recipe` int NOT NULL,
   `id_user` int NOT NULL,
   `recipe_name` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `ingredient` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -152,17 +161,18 @@ CREATE TABLE `tb_recipes` (
 -- Dumping data for table `tb_recipes`
 --
 
-INSERT INTO `tb_recipes` (`id_recipe`, `id_user`, `recipe_name`, `ingredient`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Resep Rendang', 'Bahan-bahan:\n1 kg daging sapi.\n1 liter santan kental dari 3 butir kelapa (perasan pertama tanpa air).\n550 gram kelapa parut, disangrai sampai kecokelatan.\n5 lembar daun salam.\n1 lembar daun kunyit.\n10 lembar daun jeruk.\n5 batang serai.\n1/2 batang kayu manis.\n3 butir cengkeh.\n2 sdt garam.\n1 buah kembang lawang.\nBumbu halus:\n65 gram bawang putih.\n125 gram bawang merah.\n15 gram kunyit.\n35 gram jahe.\n75 gram lengkuas.\n35 gram kemiri.\n1/2 sdt lada bubuk.\n1 sdt ketumbar.\n1 buah kapulaga.\n1/4 buah pala.\nCara membuatnya:\nPertama-tama, tumis bumbu halus dan kelapa parut sangrai. Aduk rata.\nKemudian, masukkan daun salam, daun jeruk, daun kunyit, dan serai. Masak hingga wangi.\nSetelah itu, masukkan daging. Aduk rata.\nTuang santan. Aduk rata.\nMasak rendang dengan api kecil hingga rendang mengering. Rendang daging sapi siap kamu sajikan untuk acara spesial.', '2024-06-22 09:08:32', '2024-06-22 09:08:32'),
-(2, 1, 'Sate Padang', 'Bahan-bahan:\r\n500 gram daging sapi.\r\n10 lembar daun jeruk.\r\n3 batang serai.\r\n2 cm lengkuas.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n8 siung bawang merah.\r\n3 buah cabai merah.\r\n1 sdt ketumbar.\r\n1 sdt jintan.\r\nCara membuatnya:\r\nRebus daging sapi dengan daun jeruk, serai, dan lengkuas hingga empuk.\r\nHaluskan bumbu, tumis hingga harum.\r\nCampurkan daging dengan bumbu, tusuk-tusuk menggunakan tusuk sate.\r\nBakar sate hingga matang, sajikan dengan lontong dan bumbu kacang.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(3, 1, 'Gulai Ayam', 'Bahan-bahan:\r\n1 ekor ayam, potong 8 bagian.\r\n500 ml santan kental.\r\n500 ml santan encer.\r\n5 lembar daun jeruk.\r\n2 lembar daun salam.\r\n1 batang serai.\r\n2 sdt garam.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n10 butir bawang merah.\r\n3 cm jahe.\r\n3 cm kunyit.\r\n5 buah cabai merah.\r\nCara membuatnya:\r\nTumis bumbu halus hingga harum, masukkan daun jeruk, daun salam, dan serai.\r\nMasukkan potongan ayam, aduk rata.\r\nTuang santan encer, masak hingga ayam empuk.\r\nTambahkan santan kental, masak hingga kuah mengental. Sajikan.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(4, 1, 'Dendeng Balado', 'Bahan-bahan:\r\n500 gram daging sapi, iris tipis.\r\n3 buah cabai merah besar.\r\n10 buah cabai rawit.\r\n5 siung bawang merah.\r\n2 siung bawang putih.\r\n1 buah tomat.\r\n1 sdt garam.\r\nCara membuatnya:\r\nGoreng daging sapi hingga kering.\r\nTumis bawang merah, bawang putih, cabai merah, dan cabai rawit hingga harum.\r\nMasukkan tomat, masak hingga layu.\r\nTambahkan garam, aduk rata.\r\nCampurkan daging goreng dengan bumbu, aduk hingga merata.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(5, 1, 'Ayam Pop', 'Bahan-bahan:\r\n1 ekor ayam kampung, potong 4 bagian.\r\n5 siung bawang putih.\r\n3 cm jahe.\r\n2 cm lengkuas.\r\n2 batang serai.\r\n1 sdt garam.\r\nCara membuatnya:\r\nRebus ayam bersama bawang putih, jahe, lengkuas, serai, dan garam hingga empuk.\r\nTiriskan ayam, goreng sebentar hingga kecokelatan.\r\nSajikan ayam pop dengan sambal dan lalapan.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(6, 1, 'Soto Padang', 'Bahan-bahan:\r\n300 gram daging sapi.\r\n1 liter air.\r\n1 batang serai.\r\n3 lembar daun jeruk.\r\n2 lembar daun salam.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n7 butir bawang merah.\r\n3 cm jahe.\r\n1 sdt merica.\r\nCara membuatnya:\r\nRebus daging sapi dengan serai, daun jeruk, dan daun salam hingga empuk.\r\nAngkat daging, potong dadu, goreng hingga kering.\r\nTumis bumbu halus hingga harum, masukkan ke dalam kaldu.\r\nSajikan daging dengan kuah kaldu, mie soun, dan kentang goreng.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(7, 1, 'Lontong Sayur Padang', 'Bahan-bahan:\r\n5 buah lontong, potong-potong.\r\n300 gram nangka muda.\r\n500 ml santan.\r\n5 lembar daun jeruk.\r\n2 lembar daun salam.\r\n1 batang serai.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n8 butir bawang merah.\r\n3 buah cabai merah.\r\n1 cm kunyit.\r\nCara membuatnya:\r\nTumis bumbu halus hingga harum, masukkan daun jeruk, daun salam, dan serai.\r\nMasukkan nangka muda, aduk rata.\r\nTuang santan, masak hingga nangka empuk.\r\nSajikan lontong dengan sayur nangka dan sambal.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(8, 1, 'Pical Sate', 'Bahan-bahan:\r\n500 gram daging sapi atau ayam, potong dadu.\r\n200 gram kacang tanah, goreng dan haluskan.\r\n5 siung bawang putih.\r\n3 buah cabai merah.\r\n2 sdm gula merah.\r\n2 sdm air asam jawa.\r\nCara membuatnya:\r\nTusuk daging dengan tusuk sate, panggang hingga matang.\r\nTumis bawang putih dan cabai merah hingga harum.\r\nCampurkan kacang tanah, gula merah, dan air asam jawa, masak hingga mengental.\r\nSajikan sate dengan lontong dan bumbu kacang.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(9, 1, 'Sambal Ijo', 'Bahan-bahan:\r\n10 buah cabai hijau besar.\r\n5 buah cabai rawit hijau.\r\n5 siung bawang merah.\r\n2 siung bawang putih.\r\n2 buah tomat hijau.\r\nCara membuatnya:\r\nRebus cabai hijau, cabai rawit, bawang merah, bawang putih, dan tomat hingga layu.\r\nHaluskan semua bahan, tambahkan garam.\r\nTumis sambal hingga matang, sajikan dengan berbagai hidangan Padang.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
-(10, 1, 'Gulai Tunjang', 'Bahan-bahan:\r\n1 kg kaki sapi, potong-potong.\r\n1 liter santan kental.\r\n5 lembar daun jeruk.\r\n2 lembar daun salam.\r\n1 batang serai.\r\n2 sdt garam.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n10 butir bawang merah.\r\n3 cm jahe.\r\n3 cm kunyit.\r\n5 buah cabai merah.\r\nCara membuatnya:\r\nRebus kaki sapi hingga empuk, tiriskan.\r\nTumis bumbu halus hingga harum, masukkan daun jeruk, daun salam, dan serai.\r\nMasukkan kaki sapi, aduk rata.\r\nTuang santan, masak hingga kuah mengental. Sajikan.', '2024-06-22 17:03:51', '2024-06-22 17:03:51');
+INSERT INTO `tb_recipes` (`id_recipe`, `id_user`, `recipe_name`, `image`, `ingredient`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Resep Rendang', 'rendang.jpg', 'Bahan-bahan:\n1 kg daging sapi.\n1 liter santan kental dari 3 butir kelapa (perasan pertama tanpa air).\n550 gram kelapa parut, disangrai sampai kecokelatan.\n5 lembar daun salam.\n1 lembar daun kunyit.\n10 lembar daun jeruk.\n5 batang serai.\n1/2 batang kayu manis.\n3 butir cengkeh.\n2 sdt garam.\n1 buah kembang lawang.\nBumbu halus:\n65 gram bawang putih.\n125 gram bawang merah.\n15 gram kunyit.\n35 gram jahe.\n75 gram lengkuas.\n35 gram kemiri.\n1/2 sdt lada bubuk.\n1 sdt ketumbar.\n1 buah kapulaga.\n1/4 buah pala.\nCara membuatnya:\nPertama-tama, tumis bumbu halus dan kelapa parut sangrai. Aduk rata.\nKemudian, masukkan daun salam, daun jeruk, daun kunyit, dan serai. Masak hingga wangi.\nSetelah itu, masukkan daging. Aduk rata.\nTuang santan. Aduk rata.\nMasak rendang dengan api kecil hingga rendang mengering. Rendang daging sapi siap kamu sajikan untuk acara spesial.', '2024-06-22 09:08:32', '2024-06-22 09:08:32'),
+(2, 1, 'Sate Padang', 'sate_padang.jpg', 'Bahan-bahan:\r\n500 gram daging sapi.\r\n10 lembar daun jeruk.\r\n3 batang serai.\r\n2 cm lengkuas.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n8 siung bawang merah.\r\n3 buah cabai merah.\r\n1 sdt ketumbar.\r\n1 sdt jintan.\r\nCara membuatnya:\r\nRebus daging sapi dengan daun jeruk, serai, dan lengkuas hingga empuk.\r\nHaluskan bumbu, tumis hingga harum.\r\nCampurkan daging dengan bumbu, tusuk-tusuk menggunakan tusuk sate.\r\nBakar sate hingga matang, sajikan dengan lontong dan bumbu kacang.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(3, 1, 'Gulai Ayam', 'gulai_ayam.jpg', 'Bahan-bahan:\r\n1 ekor ayam, potong 8 bagian.\r\n500 ml santan kental.\r\n500 ml santan encer.\r\n5 lembar daun jeruk.\r\n2 lembar daun salam.\r\n1 batang serai.\r\n2 sdt garam.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n10 butir bawang merah.\r\n3 cm jahe.\r\n3 cm kunyit.\r\n5 buah cabai merah.\r\nCara membuatnya:\r\nTumis bumbu halus hingga harum, masukkan daun jeruk, daun salam, dan serai.\r\nMasukkan potongan ayam, aduk rata.\r\nTuang santan encer, masak hingga ayam empuk.\r\nTambahkan santan kental, masak hingga kuah mengental. Sajikan.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(4, 1, 'Dendeng Balado', 'dendeng_balado.jpg', 'Bahan-bahan:\r\n500 gram daging sapi, iris tipis.\r\n3 buah cabai merah besar.\r\n10 buah cabai rawit.\r\n5 siung bawang merah.\r\n2 siung bawang putih.\r\n1 buah tomat.\r\n1 sdt garam.\r\nCara membuatnya:\r\nGoreng daging sapi hingga kering.\r\nTumis bawang merah, bawang putih, cabai merah, dan cabai rawit hingga harum.\r\nMasukkan tomat, masak hingga layu.\r\nTambahkan garam, aduk rata.\r\nCampurkan daging goreng dengan bumbu, aduk hingga merata.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(5, 1, 'Ayam Pop', 'ayam_pop.jpg', 'Bahan-bahan:\r\n1 ekor ayam kampung, potong 4 bagian.\r\n5 siung bawang putih.\r\n3 cm jahe.\r\n2 cm lengkuas.\r\n2 batang serai.\r\n1 sdt garam.\r\nCara membuatnya:\r\nRebus ayam bersama bawang putih, jahe, lengkuas, serai, dan garam hingga empuk.\r\nTiriskan ayam, goreng sebentar hingga kecokelatan.\r\nSajikan ayam pop dengan sambal dan lalapan.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(6, 1, 'Soto Padang', 'soto_padang.jpg', 'Bahan-bahan:\r\n300 gram daging sapi.\r\n1 liter air.\r\n1 batang serai.\r\n3 lembar daun jeruk.\r\n2 lembar daun salam.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n7 butir bawang merah.\r\n3 cm jahe.\r\n1 sdt merica.\r\nCara membuatnya:\r\nRebus daging sapi dengan serai, daun jeruk, dan daun salam hingga empuk.\r\nAngkat daging, potong dadu, goreng hingga kering.\r\nTumis bumbu halus hingga harum, masukkan ke dalam kaldu.\r\nSajikan daging dengan kuah kaldu, mie soun, dan kentang goreng.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(7, 1, 'Lontong Sayur Padang', 'lontong_sayur.jpg', 'Bahan-bahan:\r\n5 buah lontong, potong-potong.\r\n300 gram nangka muda.\r\n500 ml santan.\r\n5 lembar daun jeruk.\r\n2 lembar daun salam.\r\n1 batang serai.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n8 butir bawang merah.\r\n3 buah cabai merah.\r\n1 cm kunyit.\r\nCara membuatnya:\r\nTumis bumbu halus hingga harum, masukkan daun jeruk, daun salam, dan serai.\r\nMasukkan nangka muda, aduk rata.\r\nTuang santan, masak hingga nangka empuk.\r\nSajikan lontong dengan sayur nangka dan sambal.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(8, 1, 'Pical Sate', 'pical_sate.jpg', 'Bahan-bahan:\r\n500 gram daging sapi atau ayam, potong dadu.\r\n200 gram kacang tanah, goreng dan haluskan.\r\n5 siung bawang putih.\r\n3 buah cabai merah.\r\n2 sdm gula merah.\r\n2 sdm air asam jawa.\r\nCara membuatnya:\r\nTusuk daging dengan tusuk sate, panggang hingga matang.\r\nTumis bawang putih dan cabai merah hingga harum.\r\nCampurkan kacang tanah, gula merah, dan air asam jawa, masak hingga mengental.\r\nSajikan sate dengan lontong dan bumbu kacang.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(9, 1, 'Sambal Ijo', 'sambal_ijo.jpg', 'Bahan-bahan:\r\n10 buah cabai hijau besar.\r\n5 buah cabai rawit hijau.\r\n5 siung bawang merah.\r\n2 siung bawang putih.\r\n2 buah tomat hijau.\r\nCara membuatnya:\r\nRebus cabai hijau, cabai rawit, bawang merah, bawang putih, dan tomat hingga layu.\r\nHaluskan semua bahan, tambahkan garam.\r\nTumis sambal hingga matang, sajikan dengan berbagai hidangan Padang.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(10, 1, 'Gulai Tunjang', 'gulai_tunjang.jpg', 'Bahan-bahan:\r\n1 kg kaki sapi, potong-potong.\r\n1 liter santan kental.\r\n5 lembar daun jeruk.\r\n2 lembar daun salam.\r\n1 batang serai.\r\n2 sdt garam.\r\nBumbu halus:\r\n5 siung bawang putih.\r\n10 butir bawang merah.\r\n3 cm jahe.\r\n3 cm kunyit.\r\n5 buah cabai merah.\r\nCara membuatnya:\r\nRebus kaki sapi hingga empuk, tiriskan.\r\nTumis bumbu halus hingga harum, masukkan daun jeruk, daun salam, dan serai.\r\nMasukkan kaki sapi, aduk rata.\r\nTuang santan, masak hingga kuah mengental. Sajikan.', '2024-06-22 17:03:51', '2024-06-22 17:03:51'),
+(18, 1, 'bumbuu', 'sushi.jpg', 'bumbu2', '2024-06-23 16:13:01', '2024-06-23 16:13:01');
 
 -- --------------------------------------------------------
 
@@ -171,7 +181,7 @@ INSERT INTO `tb_recipes` (`id_recipe`, `id_user`, `recipe_name`, `ingredient`, `
 --
 
 CREATE TABLE `tb_stores` (
-  `store_id` int NOT NULL,
+  `id_store` int NOT NULL,
   `store_name` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -182,7 +192,7 @@ CREATE TABLE `tb_stores` (
 -- Dumping data for table `tb_stores`
 --
 
-INSERT INTO `tb_stores` (`store_id`, `store_name`, `location`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tb_stores` (`id_store`, `store_name`, `location`, `created_at`, `updated_at`) VALUES
 (1, 'Rumah Makan ', 'Indonesia', '2024-06-22 09:18:43', '2024-06-22 09:18:43'),
 (2, 'RM Padang Sederhana', 'Jl. Sudirman No. 123, Padang', '2024-06-22 17:09:32', '2024-06-22 17:09:32'),
 (3, 'RM Padang Pagi Sore', 'Jl. Veteran No. 45, Jakarta', '2024-06-22 17:09:32', '2024-06-22 17:09:32'),
@@ -237,7 +247,8 @@ ALTER TABLE `tb_comments`
 ALTER TABLE `tb_favorites`
   ADD PRIMARY KEY (`id_favorite`),
   ADD KEY `id_food` (`id_food`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_store` (`id_store`);
 
 --
 -- Indexes for table `tb_foods`
@@ -263,7 +274,7 @@ ALTER TABLE `tb_recipes`
 -- Indexes for table `tb_stores`
 --
 ALTER TABLE `tb_stores`
-  ADD PRIMARY KEY (`store_id`);
+  ADD PRIMARY KEY (`id_store`);
 
 --
 -- Indexes for table `tb_users`
@@ -285,7 +296,7 @@ ALTER TABLE `tb_comments`
 -- AUTO_INCREMENT for table `tb_favorites`
 --
 ALTER TABLE `tb_favorites`
-  MODIFY `id_favorite` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_favorite` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_foods`
@@ -303,13 +314,13 @@ ALTER TABLE `tb_news`
 -- AUTO_INCREMENT for table `tb_recipes`
 --
 ALTER TABLE `tb_recipes`
-  MODIFY `id_recipe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_recipe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tb_stores`
 --
 ALTER TABLE `tb_stores`
-  MODIFY `store_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_store` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_users`
@@ -333,13 +344,14 @@ ALTER TABLE `tb_comments`
 --
 ALTER TABLE `tb_favorites`
   ADD CONSTRAINT `tb_favorites_ibfk_1` FOREIGN KEY (`id_food`) REFERENCES `tb_foods` (`id_food`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tb_favorites_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tb_users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tb_favorites_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tb_users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `tb_favorites_ibfk_3` FOREIGN KEY (`id_store`) REFERENCES `tb_stores` (`id_store`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_foods`
 --
 ALTER TABLE `tb_foods`
-  ADD CONSTRAINT `tb_foods_ibfk_2` FOREIGN KEY (`id_store`) REFERENCES `tb_stores` (`store_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tb_foods_ibfk_2` FOREIGN KEY (`id_store`) REFERENCES `tb_stores` (`id_store`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `tb_recipes`
