@@ -8,8 +8,11 @@ include 'koneksi.php';
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response = array();
     
-    // Fetch all foods from the database
-    $query = "SELECT * FROM tb_foods";
+    // Fetch all foods with store details from the database
+    $query = "SELECT f.id_food, f.name, f.description, f.image, f.id_store, f.created_at, f.updated_at, 
+                     s.store_name, s.location 
+              FROM tb_foods f
+              LEFT JOIN tb_stores s ON f.id_store = s.store_id";
     $result = mysqli_query($koneksi, $query);
     
     if (mysqli_num_rows($result) > 0) {
@@ -22,8 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 'id_food' => $row['id_food'],
                 'name' => $row['name'],
                 'description' => $row['description'],
+                'image' => $row['image'],
                 'id_store' => $row['id_store'],
-                'id_category' => $row['id_category'],
+                'store_name' => $row['store_name'],
+                'location' => $row['location'],
                 'created_at' => $row['created_at'],
                 'updated_at' => $row['updated_at']
             );
