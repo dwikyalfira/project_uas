@@ -8,8 +8,10 @@ include 'koneksi.php';
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response = array();
 
-    // Fetch all recipes from the database
-    $query = "SELECT id_recipe, id_user, ingredient, recipe_name, created_at, updated_at FROM tb_recipes";
+    // Fetch all recipes along with the username from the database
+    $query = "SELECT r.id_recipe, r.id_user, r.ingredient, r.recipe_name, r.created_at, r.updated_at, u.username 
+              FROM tb_recipes r
+              JOIN tb_users u ON r.id_user = u.id"; 
     $result = mysqli_query($koneksi, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -21,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $recipe_item = array(
                 'id_recipe' => $row['id_recipe'],
                 'id_user' => $row['id_user'],
+                'username' => $row['username'],
                 'recipe_name' => $row['recipe_name'],
                 'ingredient' => $row['ingredient'],
                 'created_at' => $row['created_at'],
