@@ -12,14 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if (isset($_GET['user_id']) && is_numeric($_GET['user_id'])) {
         $user_id = intval($_GET['user_id']);
 
-        // Use prepared statements to prevent SQL injection
-        $query = "SELECT tb_favorites.id_favorite, tb_favorites.id_user, tb_favorites.id_food, tb_favorites.created_at, tb_favorites.updated_at,
-                         tb_users.username, tb_foods.name AS food_name, tb_foods.description AS food_description, 
-                         tb_foods.id_store, tb_foods.id_category
-                  FROM tb_favorites
-                  JOIN tb_users ON tb_favorites.id_user = tb_users.id
-                  JOIN tb_foods ON tb_favorites.id_food = tb_foods.id_food
-                  WHERE tb_favorites.id_user = ?";
+        $query = "SELECT tb_favorites.id_favorite, tb_favorites.id_user, tb_favorites.id_food, tb_favorites.id_store, tb_favorites.created_at, tb_favorites.updated_at,
+        tb_users.username,
+        tb_foods.id_food, tb_foods.name AS food_name, tb_foods.description AS food_description, tb_foods.image, tb_stores.id_store, tb_stores.store_name, tb_stores.location
+            FROM tb_favorites
+            JOIN tb_users ON tb_favorites.id_user = tb_users.id
+            JOIN tb_foods ON tb_favorites.id_food = tb_foods.id_food
+            JOIN tb_stores ON tb_foods.id_store = tb_stores.id_store
+            WHERE tb_favorites.id_user = ?";
+
         if ($stmt = $koneksi->prepare($query)) {
             $stmt->bind_param("i", $user_id);
             $stmt->execute();
@@ -37,9 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                         'username' => $row['username'],
                         'id_food' => $row['id_food'],
                         'food_name' => $row['food_name'],
+                        'image' => $row['image'],
                         'food_description' => $row['food_description'],
                         'id_store' => $row['id_store'],
-                        'id_category' => $row['id_category'],
+                        'store_name' => $row['store_name'],
+                        'location' => $row['location'],
                         'created_at' => $row['created_at'],
                         'updated_at' => $row['updated_at']
                     );
@@ -70,3 +73,5 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response['message'] = "Metode permintaan tidak valid";
     echo json_encode($response);
 }
+
+mysqli_close($koneksi);
