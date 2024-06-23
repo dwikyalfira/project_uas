@@ -13,13 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $user_id = intval($_GET['user_id']);
 
         // Use prepared statements to prevent SQL injection
-        $query = "SELECT tb_favorite.id_favorite, tb_favorite.id_user, tb_favorite.id_food, tb_favorite.created_at, tb_favorite.updated_at,
-                         tb_users.user_name, tb_foods.name AS food_name, tb_foods.description AS food_description, 
+        $query = "SELECT tb_favorites.id_favorite, tb_favorites.id_user, tb_favorites.id_food, tb_favorites.created_at, tb_favorites.updated_at,
+                         tb_users.username, tb_foods.name AS food_name, tb_foods.description AS food_description, 
                          tb_foods.id_store, tb_foods.id_category
-                  FROM tb_favorite
-                  JOIN tb_users ON tb_favorite.id_user = tb_users.id_user
-                  JOIN tb_foods ON tb_favorite.id_food = tb_foods.id_food
-                  WHERE tb_favorite.id_user = ?";
+                  FROM tb_favorites
+                  JOIN tb_users ON tb_favorites.id_user = tb_users.id
+                  JOIN tb_foods ON tb_favorites.id_food = tb_foods.id_food
+                  WHERE tb_favorites.id_user = ?";
         if ($stmt = $koneksi->prepare($query)) {
             $stmt->bind_param("i", $user_id);
             $stmt->execute();
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                     $favorite_item = array(
                         'id_favorite' => $row['id_favorite'],
                         'id_user' => $row['id_user'],
-                        'user_name' => $row['user_name'],
+                        'username' => $row['username'],
                         'id_food' => $row['id_food'],
                         'food_name' => $row['food_name'],
                         'food_description' => $row['food_description'],
@@ -70,5 +70,3 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response['message'] = "Metode permintaan tidak valid";
     echo json_encode($response);
 }
-
-?>
