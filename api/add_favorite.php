@@ -9,16 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $response = array();
 
     // Check if the required POST parameters are set
-    if (isset($_POST['user_id']) && isset($_POST['product_id'])) {
-        $user_id = $_POST['user_id'];
-        $product_id = $_POST['product_id'];
+    if (isset($_POST['user_id']) && isset($_POST['food_id'])) {
+        $id_user = $_POST['user_id'];
+        $id_food = $_POST['food_id'];
 
         // Sanitize inputs to prevent SQL injection
-        $user_id = mysqli_real_escape_string($koneksi, $user_id);
-        $product_id = mysqli_real_escape_string($koneksi, $product_id);
+        $id_user = mysqli_real_escape_string($koneksi, $id_user);
+        $id_food = mysqli_real_escape_string($koneksi, $id_food);
 
         // Insert the new favorite
-        $insert = "INSERT INTO tb_favorites (user_id, product_id, created_at ) VALUES ('$user_id', '$product_id', NOW())";
+        $insert = "INSERT INTO tb_favorites (id_user, id_food, created_at ) VALUES ('$id_user', '$id_food', NOW())";
         if (mysqli_query($koneksi, $insert)) {
             $response['value'] = 1;
             $response['message'] = "Favorit berhasil ditambahkan";
@@ -33,12 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     echo json_encode($response);
-
 } else {
     // Invalid request method
     $response['value'] = 0;
     $response['message'] = "Metode permintaan tidak valid";
     echo json_encode($response);
 }
-
-?>
