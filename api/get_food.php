@@ -7,19 +7,18 @@ include 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response = array();
-    
+
     // Fetch all foods with store details from the database
-    $query = "SELECT f.id_food, f.name, f.description, f.image, f.id_store, f.created_at, f.updated_at, 
-                     s.store_name, s.location 
+    $query = "SELECT f.id_food, f.name, f.description, f.image, f.id_store, f.created_at, f.updated_at, s.store_name, s.location 
               FROM tb_foods f
-              LEFT JOIN tb_stores s ON f.id_store = s.store_id";
+              LEFT JOIN tb_stores s ON f.id_store = s.id_store";
     $result = mysqli_query($koneksi, $query);
-    
+
     if (mysqli_num_rows($result) > 0) {
         $response['value'] = 1;
         $response['message'] = "Berhasil mendapatkan data makanan";
         $response['foods'] = array();
-        
+
         while ($row = mysqli_fetch_assoc($result)) {
             $data = array(
                 'id_food' => $row['id_food'],
@@ -34,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             );
             array_push($response['foods'], $data);
         }
-        
+
         echo json_encode($response);
     } else {
         $response['value'] = 0;
@@ -47,5 +46,3 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response['message'] = "Metode permintaan tidak valid";
     echo json_encode($response);
 }
-
-?>
