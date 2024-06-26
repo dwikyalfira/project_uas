@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response = array();
 
     // Fetch all news from the database
-    $query = "SELECT news_id, title, content, publish_date, author, created_at, updated_at FROM tb_news";
+    $query = "SELECT news_id, title, content, image, publish_date, author, created_at, updated_at FROM tb_news";
     $result = mysqli_query($koneksi, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 'news_id' => $row['news_id'],
                 'title' => $row['title'],
                 'content' => $row['content'],
+                'image' => $row['image'],
                 'publish_date' => $row['publish_date'],
                 'author' => $row['author'],
                 'created_at' => $row['created_at'],

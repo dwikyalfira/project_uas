@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $response = array();
 
     // Fetch all stores with their foods from the database
-    $query = "SELECT s.store_id, s.store_name, s.location, s.created_at, s.updated_at, 
-                     f.id_food, f.name as food_name, f.description as food_description, f.image as food_image
+    $query = "SELECT s.id_store, s.store_name, s.location, s.image, s.description, s.created_at, s.   updated_at,
+              f.id_food, f.name as food_name, f.description as food_description, f.image as food_image
               FROM tb_stores s
-              LEFT JOIN tb_foods f ON s.store_id = f.id_store";
+              LEFT JOIN tb_foods f ON s.id_store = f.id_store";
     $result = mysqli_query($koneksi, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -23,13 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $stores = array();
         
         while ($row = mysqli_fetch_assoc($result)) {
-            $store_id = $row['store_id'];
+            $id_store = $row['id_store'];
             
-            if (!isset($stores[$store_id])) {
-                $stores[$store_id] = array(
-                    'store_id' => $row['store_id'],
+            if (!isset($stores[$id_store])) {
+                $stores[$id_store] = array(
+                    'storeid' => $row['id_store'], 
                     'store_name' => $row['store_name'],
+                    'image' => $row['image'],
                     'location' => $row['location'],
+                    'description' => $row['description'],
                     'created_at' => $row['created_at'],
                     'updated_at' => $row['updated_at'],
                     'foods' => array()
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                     'description' => $row['food_description'],
                     'image' => $row['food_image']
                 );
-                $stores[$store_id]['foods'][] = $food_item;
+                $stores[$id_store]['foods'][] = $food_item;
             }
         }
 
