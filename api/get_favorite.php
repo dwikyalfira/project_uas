@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         $query = "SELECT tb_favorites.id_favorite, tb_favorites.id_user, tb_favorites.id_food, tb_favorites.created_at, tb_favorites.updated_at,
         tb_users.username,
-        tb_foods.id_food, tb_foods.name AS food_name, tb_foods.description AS food_description, tb_foods.image, tb_stores.store_id, tb_stores.store_name, tb_stores.location
+        tb_foods.id_food, tb_foods.name AS food_name, tb_foods.description AS food_description, tb_foods.image, tb_stores.id_store, tb_stores.store_name, tb_stores.location
             FROM tb_favorites
             JOIN tb_users ON tb_favorites.id_user = tb_users.id
             JOIN tb_foods ON tb_favorites.id_food = tb_foods.id_food
-            JOIN tb_stores ON tb_foods.id_store = tb_stores.store_id
+            JOIN tb_stores ON tb_foods.id_store = tb_stores.id_store
             WHERE tb_favorites.id_user = ?";
 
         if ($stmt = $koneksi->prepare($query)) {

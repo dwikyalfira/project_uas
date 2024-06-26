@@ -9,16 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $response = array();
 
     // Check if the required POST parameters are set
-    if (isset($_POST['user_id']) && isset($_POST['food_id'])) {
+    if (isset($_POST['user_id']) && isset($_POST['food_id']) && isset($_POST['store_id'])) {
         $id_user = $_POST['user_id'];
         $id_food = $_POST['food_id'];
+        $id_store = $_POST['store_id'];
 
         // Sanitize inputs to prevent SQL injection
         $id_user = mysqli_real_escape_string($koneksi, $id_user);
         $id_food = mysqli_real_escape_string($koneksi, $id_food);
+        $id_store = mysqli_real_escape_string($koneksi, $id_store);
 
         // Insert the new favorite
-        $insert = "INSERT INTO tb_favorites (id_user, id_food, created_at ) VALUES ('$id_user', '$id_food', NOW())";
+        $insert = "INSERT INTO tb_favorites (id_user, id_food, id_store, created_at) VALUES ('$id_user', '$id_food', '$id_store', NOW())";
         if (mysqli_query($koneksi, $insert)) {
             $response['value'] = 1;
             $response['message'] = "Favorit berhasil ditambahkan";
